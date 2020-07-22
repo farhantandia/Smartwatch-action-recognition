@@ -360,7 +360,7 @@ public class MainActivity extends FragmentActivity implements
 //                mlValue = Math.sqrt(Math.pow(lx.get(i), 2) + Math.pow(ly.get(i), 2) + Math.pow(lz.get(i), 2));
                 mgValue = Math.sqrt(Math.pow(gx.get(i), 2) + Math.pow(gy.get(i), 2) + Math.pow(gz.get(i), 2));
 
-//                ma.add((float)maValue);
+                ma.add((float)maValue);
 //                ml.add((float)mlValue);
                 mg.add((float)mgValue);
             }
