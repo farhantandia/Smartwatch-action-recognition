@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity implements
     private TextToSpeech textToSpeech;
     private float[] results;
     private TFClassifier classifier;
-    private String[] labels = {"jumping", "falling", "standing","walking"};
+    private String[] labels = {"falling", "jumping", "standing","walking"};
 
     private static final String TAG = "MainActivity";
     private SensorManager sensorManager;
@@ -369,9 +369,9 @@ public class MainActivity extends FragmentActivity implements
             data.addAll(ay.subList(0, N_SAMPLES));
             data.addAll(az.subList(0, N_SAMPLES));
 //
-//            data.addAll(gx.subList(0, N_SAMPLES));
-//            data.addAll(gy.subList(0, N_SAMPLES));
-//            data.addAll(gz.subList(0, N_SAMPLES));
+            data.addAll(gx.subList(0, N_SAMPLES));
+            data.addAll(gy.subList(0, N_SAMPLES));
+            data.addAll(gz.subList(0, N_SAMPLES));
 
 //            data.addAll(lx.subList(0, N_SAMPLES));
 //            data.addAll(ly.subList(0, N_SAMPLES));
@@ -382,7 +382,7 @@ public class MainActivity extends FragmentActivity implements
 //            data.addAll(zr.subList(0, N_SAMPLES));
 //            data.addAll(sr.subList(0, N_SAMPLES));
 
-//            data.addAll(ma.subList(0, N_SAMPLES));
+            data.addAll(ma.subList(0, N_SAMPLES));
 //            data.addAll(ml.subList(0, N_SAMPLES));
             data.addAll(mg.subList(0, N_SAMPLES));
 //            System.out.println(data);
@@ -408,7 +408,7 @@ public class MainActivity extends FragmentActivity implements
 //            xr.clear(); yr.clear(); zr.clear();
 //            sr.clear();
 
-//            ma.clear();
+            ma.clear();
             mg.clear();
         }
     }
@@ -482,15 +482,15 @@ public class MainActivity extends FragmentActivity implements
                     if(idx==0){
                         Stand = 0;
                         Walk = 0;
-                        Jump = 1;
-                        Fall = 0;
+                        Jump = 0;
+                        Fall = 1;
                         Stat = labels[idx];
                     }
                     else if (idx ==1){
                         Stand = 0;
                         Walk = 0;
-                        Jump = 0;
-                        Fall  = 1;
+                        Jump = 1;
+                        Fall  = 0;
                         Stat = labels[idx];
                     }
                     else if (idx ==2){

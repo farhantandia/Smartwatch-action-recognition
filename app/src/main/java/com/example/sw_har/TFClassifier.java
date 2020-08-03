@@ -10,11 +10,11 @@ public class TFClassifier {
     }
 
     private TensorFlowInferenceInterface inferenceInterface;
-    private static final String MODEL_FILE = "file:///android_asset/100_20_4_4_sw.pb";
+    private static final String MODEL_FILE = "file:///android_asset/100_20_8_4_all.pb";
     private static final String INPUT_NODE = "LSTM_1_input";
     private static final String[] OUTPUT_NODES = {"Dense_2/Softmax"};
     private static final String OUTPUT_NODE = "Dense_2/Softmax";
-    private static final long[] INPUT_SIZE = {1, 100, 4};
+    private static final long[] INPUT_SIZE = {1, 100, 8};
     private static final int OUTPUT_SIZE = 4;
 
     public TFClassifier(final Context context) {

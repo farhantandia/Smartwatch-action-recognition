@@ -57,7 +57,7 @@
                 <TextView
                     android:id="@+id/standing_title"
                     android:layout_weight="1"
-                    android:text="Jumping"
+                    android:text="Falling"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textColor="@color/black"
@@ -80,7 +80,7 @@
                 <TextView
                     android:id="@+id/walking_title"
                     android:layout_weight="1"
-                    android:text="Falling"
+                    android:text="Jumping"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textColor="@color/black"
