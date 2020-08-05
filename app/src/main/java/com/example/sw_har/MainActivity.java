@@ -38,7 +38,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends FragmentActivity implements
         AmbientModeSupport.AmbientCallbackProvider,SensorEventListener , TextToSpeech.OnInitListener {
-    private static final int N_SAMPLES =100;
+    private static final int N_SAMPLES =125;
     private static int prevIdx = -1;
 
     private static List<Float> ax;
@@ -360,9 +360,9 @@ public class MainActivity extends FragmentActivity implements
 //                mlValue = Math.sqrt(Math.pow(lx.get(i), 2) + Math.pow(ly.get(i), 2) + Math.pow(lz.get(i), 2));
                 mgValue = Math.sqrt(Math.pow(gx.get(i), 2) + Math.pow(gy.get(i), 2) + Math.pow(gz.get(i), 2));
 
-                ma.add((float)maValue);
+//                ma.add((float)maValue);
 //                ml.add((float)mlValue);
-                mg.add((float)mgValue);
+//                mg.add((float)mgValue);
             }
 
             data.addAll(ax.subList(0, N_SAMPLES));
@@ -382,9 +382,9 @@ public class MainActivity extends FragmentActivity implements
 //            data.addAll(zr.subList(0, N_SAMPLES));
 //            data.addAll(sr.subList(0, N_SAMPLES));
 
-            data.addAll(ma.subList(0, N_SAMPLES));
+//            data.addAll(ma.subList(0, N_SAMPLES));
 //            data.addAll(ml.subList(0, N_SAMPLES));
-            data.addAll(mg.subList(0, N_SAMPLES));
+//            data.addAll(mg.subList(0, N_SAMPLES));
 //            System.out.println(data);
             results = classifier.predictProbabilities(toFloatArray(data));
 
@@ -408,8 +408,8 @@ public class MainActivity extends FragmentActivity implements
 //            xr.clear(); yr.clear(); zr.clear();
 //            sr.clear();
 
-            ma.clear();
-            mg.clear();
+//            ma.clear();
+//            mg.clear();
         }
     }
 
@@ -475,7 +475,7 @@ public class MainActivity extends FragmentActivity implements
                     }
                 }
 
-                if(max > 0.8 && idx != prevIdx) {
+                if(max > 0.85 && idx != prevIdx) {
                     textToSpeech.speak(labels[idx], TextToSpeech.QUEUE_ADD, null,
                             Integer.toString(new Random().nextInt()));
                     Status.setText(labels[idx]);
@@ -513,7 +513,7 @@ public class MainActivity extends FragmentActivity implements
                     prevIdx = idx;
                 }
             }
-        }, 70, 200);
+        }, 200, 600);
 //    }, 750, 2000);
     }
     protected void onPause() {
