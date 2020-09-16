@@ -20,7 +20,6 @@
             tools:context=".MainActivity">
 
             <TableRow
-                android:id="@+id/title_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="15dp"
@@ -38,15 +37,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/textView"-->
-                <!--                android:layout_weight="@integer/complicationDrawable_borderStyle"-->
-                <!--                android:fontFamily="sans-serif-medium"-->
-                <!--                android:text="P"-->
-                <!--                android:textAlignment="center"-->
-                <!--                android:textColor="@color/white"-->
-                <!--                android:textSize="15sp"-->
-                <!--                android:textStyle="bold" />-->
             </TableRow>
             <TableRow
                 android:id="@+id/standing_row"
@@ -55,7 +45,6 @@
                 android:padding="0dp">
 
                 <TextView
-                    android:id="@+id/standing_title"
                     android:layout_weight="1"
                     android:text="Falling"
                     android:textAlignment="center"
@@ -78,7 +67,6 @@
                 android:padding="0dp">
 
                 <TextView
-                    android:id="@+id/walking_title"
                     android:layout_weight="1"
                     android:text="Jumping"
                     android:textAlignment="center"
@@ -104,7 +92,6 @@
                 android:padding="0dp">
 
                 <TextView
-                    android:id="@+id/jumping_title"
                     android:layout_weight="1"
                     android:text="Standing"
                     android:textAlignment="center"
@@ -129,7 +116,6 @@
                 android:padding="0dp">
 
                 <TextView
-                    android:id="@+id/falling_title"
                     android:layout_weight="1"
                     android:text="Walking"
                     android:textAlignment="center"
@@ -157,19 +143,13 @@
             android:layout_centerHorizontal="true"
 
             android:id="@+id/userid">
-            <EditText
-                android:id="@+id/id"
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints=""
-                android:inputType="number"
-                android:textColorHint="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:hint="User ID"/>
+                android:layout_marginTop="5dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <LinearLayout
@@ -182,7 +162,6 @@
             android:id="@+id/Stat">
 
             <TextView
-                android:id="@+id/statustit"
                 android:text="Status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -209,8 +188,7 @@
             android:layout_below="@id/userid"
             android:text="Record"
             android:textSize="14dp"
-            android:textColor="@color/white"
-            android:enabled="false"/>
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/Save"
@@ -231,7 +209,6 @@
             android:id="@+id/hr">
 
             <ImageView
-                android:id="@+id/imageView1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignTop="@+id/Save"
@@ -250,7 +227,6 @@
 
 
             <TextView
-                android:id="@+id/bpm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="BPM"
@@ -284,7 +260,6 @@
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"

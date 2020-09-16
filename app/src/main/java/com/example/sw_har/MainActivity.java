@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -129,8 +132,6 @@ public class MainActivity extends FragmentActivity implements
         gx = new ArrayList<>(); gy = new ArrayList<>(); gz = new ArrayList<>();
         ma = new ArrayList<>(); ml = new ArrayList<>(); mg = new ArrayList<>();
         mx = new ArrayList<>(); my = new ArrayList<>(); mz = new ArrayList<>();
-        mm = new ArrayList<>();xr = new ArrayList<>(); yr = new ArrayList<>(); zr = new ArrayList<>();
-        sr = new ArrayList<>();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -144,12 +145,37 @@ public class MainActivity extends FragmentActivity implements
         walkingTableRow = (TableRow) findViewById(R.id.walking_row);
         jumpingTableRow = (TableRow) findViewById(R.id.jumping_row);
         fallingTableRow = (TableRow) findViewById(R.id.falling_row);
-        userID = findViewById(R.id.id);
+        Spinner dropdown = findViewById(R.id.spinner1);
+        String[] items1 = new String[]{"ID : 1", "ID : 2", "ID : 3", "ID : 4"};
 
-        userID.addTextChangedListener(activityTextWatcher);
         Status = (TextView) findViewById(R.id.status);
         Heart = (TextView) findViewById(R.id.heart);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        InputID = "1";
+                        break;
+                    case 1:
+                        InputID = "2";
+                        break;
+                    case 2:
+                        InputID = "3";
+                        break;
+                    case 3:
+                        InputID = "4";
+                        break;
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         heartRate = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
@@ -216,24 +242,7 @@ public class MainActivity extends FragmentActivity implements
             }
         });
     }
-    private TextWatcher activityTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            InputID = userID.getText().toString();
-
-            record.setEnabled(!InputID.isEmpty());
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
