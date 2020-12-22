@@ -38,10 +38,11 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends FragmentActivity implements
         AmbientModeSupport.AmbientCallbackProvider,SensorEventListener , TextToSpeech.OnInitListener {
-    private static final int N_SAMPLES =125;
+    private static final int N_SAMPLES =100;
     private static int prevIdx = -1;
 
     private static List<Float> ax;
@@ -94,13 +95,11 @@ public class MainActivity extends FragmentActivity implements
     private TextToSpeech textToSpeech;
     private float[] results;
     private TFClassifier classifier;
-    private String[] labels = {"falling", "jumping", "standing","walking"};
+    private String[] labels = {"jumping", "standing","walking","falling"};
 
     private static final String TAG = "MainActivity";
     private SensorManager sensorManager;
     Button save, record;
-    private Button mButtonStartPause;
-    private Button mButtonReset;
     private boolean permission_to_record = false;
     String InputID;
     String DATA = "";
@@ -118,7 +117,7 @@ public class MainActivity extends FragmentActivity implements
     String Stat ="";
     String heartValue ="";
     Context context = this;
-
+    double maValue; double mgValue; double mlValue;
     int CounterForSave = 0;
 
 
@@ -198,8 +197,6 @@ public class MainActivity extends FragmentActivity implements
         textToSpeech = new TextToSpeech(this, this);
         textToSpeech.setLanguage(Locale.US);
 
-        mButtonStartPause = findViewById(R.id.Record);
-        mButtonReset = findViewById(R.id.Save);
         save = (Button) findViewById(R.id.Save);
         record = (Button) findViewById(R.id.Record);
 
@@ -293,13 +290,15 @@ public class MainActivity extends FragmentActivity implements
             ay.add(event.values[1]);
             az.add(event.values[2]);
 //            Status.setText(String.valueOf(event.values[0]));
+            maValue = Math.sqrt(Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2));
 
         }
-
         if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             gx.add(event.values[0]);
             gy.add(event.values[1]);
             gz.add(event.values[2]);
+
+            mgValue = Math.sqrt(Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2));
 
         }
 //        if (sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
@@ -328,7 +327,9 @@ public class MainActivity extends FragmentActivity implements
             Heart.setText(Integer.toString(mHeartRate));
             heartValue = Integer.toString(mHeartRate);
         }
+
         activityPrediction();
+
 
         if (!dateCurrentTemp.equals(dateCurrent)){
             dateCurrentTemp = dateCurrent;
@@ -362,17 +363,17 @@ public class MainActivity extends FragmentActivity implements
 //               && lx.size() >= N_SAMPLES && ly.size() >= N_SAMPLES && lz.size() >= N_SAMPLES
 //                && xr.size() >= N_SAMPLES && yr.size() >= N_SAMPLES && zr.size() >= N_SAMPLES&& sr.size() >= N_SAMPLES
         ) {
-            double maValue; double mgValue; double mlValue;
+//            double maValue; double mgValue; double mlValue;
 
-            for( int i = 0; i < N_SAMPLES ; i++ ) {
-                maValue = Math.sqrt(Math.pow(ax.get(i), 2) + Math.pow(ay.get(i), 2) + Math.pow(az.get(i), 2));
+//            for( int i = 0; i < N_SAMPLES ; i++ ) {
+//                maValue = Math.sqrt(Math.pow(ax.get(i), 2) + Math.pow(ay.get(i), 2) + Math.pow(az.get(i), 2));
 //                mlValue = Math.sqrt(Math.pow(lx.get(i), 2) + Math.pow(ly.get(i), 2) + Math.pow(lz.get(i), 2));
-                mgValue = Math.sqrt(Math.pow(gx.get(i), 2) + Math.pow(gy.get(i), 2) + Math.pow(gz.get(i), 2));
+//                mgValue = Math.sqrt(Math.pow(gx.get(i), 2) + Math.pow(gy.get(i), 2) + Math.pow(gz.get(i), 2));
 
 //                ma.add((float)maValue);
 //                ml.add((float)mlValue);
 //                mg.add((float)mgValue);
-            }
+//            }
 
             data.addAll(ax.subList(0, N_SAMPLES));
             data.addAll(ay.subList(0, N_SAMPLES));
@@ -427,7 +428,7 @@ public class MainActivity extends FragmentActivity implements
         standingTextView.setText(Float.toString(round(results[0], 2)));
         walkingTextView.setText(Float.toString(round(results[1], 2)));
         jumpingTextView.setText(Float.toString(round(results[2], 2)));
-        fallingTextView.setText(Float.toString(round(results[3], 2)));
+//        fallingTextView.setText(Float.toString(round(results[3], 2)));
     }
 
     private void setRowsColor(int idx) {
@@ -484,25 +485,50 @@ public class MainActivity extends FragmentActivity implements
                     }
                 }
 
-                if(max > 0.85 && idx != prevIdx) {
-                    textToSpeech.speak(labels[idx], TextToSpeech.QUEUE_ADD, null,
-                            Integer.toString(new Random().nextInt()));
-                    Status.setText(labels[idx]);
-                    if(idx==0){
+                if (maValue>=12.0 && mgValue>=8){
+
+                    try {
+                        Stat = labels[3];
                         Stand = 0;
                         Walk = 0;
                         Jump = 0;
-                        Fall = 1;
-                        Stat = labels[idx];
+                        Fall  = 1;
+                        Status.setText(labels[3]);
+                        textToSpeech.speak(labels[3], TextToSpeech.QUEUE_ADD, null,
+                                Integer.toString(new Random().nextInt()));
+                        TimeUnit.SECONDS.sleep(4);
+
+                        Stat = "";
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    else if (idx ==1){
+//                    try {
+//                        Thread.sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+
+                    prevIdx = idx;
+                }
+                if(max > 0.90 && idx != prevIdx && Stat!=labels[3]) {
+                    textToSpeech.speak(labels[idx], TextToSpeech.QUEUE_ADD, null,
+                            Integer.toString(new Random().nextInt()));
+                    Status.setText(labels[idx]);
+//                    if(idx==0){
+//                        Stand = 0;
+//                        Walk = 0;
+//                        Jump = 0;
+//                        Fall = 1;
+//                        Stat = labels[idx];
+//                    }
+                    if (idx ==0){
                         Stand = 0;
                         Walk = 0;
                         Jump = 1;
                         Fall  = 0;
                         Stat = labels[idx];
                     }
-                    else if (idx ==2){
+                    else if (idx ==1){
 //                        Sit = 0;
                         Stand = 1;
                         Walk = 0;
@@ -510,7 +536,7 @@ public class MainActivity extends FragmentActivity implements
                         Fall  = 0;
                         Stat = labels[idx];
                     }
-                    else if (idx ==3){
+                    else if (idx ==2){
 //                        Sit = 0;
                         Stand = 0;
                         Walk = 1;
@@ -522,7 +548,7 @@ public class MainActivity extends FragmentActivity implements
                     prevIdx = idx;
                 }
             }
-        }, 200, 600);
+        }, 400, 1300);
 //    }, 750, 2000);
     }
     protected void onPause() {

@@ -46,7 +46,7 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Falling"
+                    android:text="Jumping"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textColor="@color/black"
@@ -68,7 +68,7 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Jumping"
+                    android:text="Standing"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textColor="@color/black"
@@ -93,7 +93,7 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Standing"
+                    android:text="Walking"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textColor="@color/black"
@@ -117,7 +117,7 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Walking"
+                    android:text="Falling"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textColor="@color/black"
