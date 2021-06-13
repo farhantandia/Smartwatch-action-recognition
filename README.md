@@ -11,7 +11,7 @@ Feature:
 Steps to use:
 1. select the ID
 2. click Record button, then the app will collect the prediction data and heart rate in 15Hz rate to CSV locally.
-4. after timer is up, the data will saved automatically
+3. click save to finish and the data will saved automatically
 <p align="center">
 <img src="https://github.com/farhantandia/Smartwatch-action-recognition/blob/master/ss/sw-app.png"/>
 
