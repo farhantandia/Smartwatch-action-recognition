@@ -428,7 +428,7 @@ public class MainActivity extends FragmentActivity implements
         standingTextView.setText(Float.toString(round(results[0], 2)));
         walkingTextView.setText(Float.toString(round(results[1], 2)));
         jumpingTextView.setText(Float.toString(round(results[2], 2)));
-//        fallingTextView.setText(Float.toString(round(results[3], 2)));
+        fallingTextView.setText(Float.toString(round(0, 2)));
     }
 
     private void setRowsColor(int idx) {
